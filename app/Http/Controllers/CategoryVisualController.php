@@ -53,6 +53,7 @@ class CategoryVisualController extends Controller
      */
     public function show(Category $category)
     {
+        $category->load('products');
         return Inertia::render('Categories/Show', [
             'category' => $category,
         ]);
