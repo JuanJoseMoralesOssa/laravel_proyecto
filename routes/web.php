@@ -35,7 +35,13 @@ Route::middleware('auth')->group(function () {
 //     ->only(['index', 'store', 'update', 'destroy'])
 //     ->middleware(['auth', 'verified']);
 
-Route::resource('/categories', CategoryVisualController::class)->middleware('auth');
+
+Route::get('/categories/all', [CategoryVisualController::class, 'index_all']);
+
+Route::resource(
+    '/categories',
+    CategoryVisualController::class
+)->middleware('auth');
 Route::resource('/products', ProductVisualController::class)->middleware('auth');
 Route::resource('/home', UserController::class)->middleware('auth');
 
@@ -46,7 +52,6 @@ Route::get('/', [
     'canLogin' => Route::has('login'),
     'canRegister' => Route::has('register'),
 ])->name('products.index');
-Route::get('/categories', [CategoryVisualController::class, 'index_all']);
 
 Route::get('/products', [ProductVisualController::class, 'crud'])->name('products.crud')->middleware(['auth', 'verified']);
 
